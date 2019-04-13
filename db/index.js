@@ -11,32 +11,6 @@ const Product = conn.define('product', {
 Product.belongsTo(Category);
 Category.hasMany(Product);
 
-const seed = () => {
-    let computer, headphones, television, laptopComputer, bluetoothHeadphones, smartTv, noiseCancellingHeadphones;
-    return Promise.all([
-        Category.create({ name: 'computer'}),
-        Category.create({ name: 'headphones' }),
-        Category.create({ name: 'television' })
-    ])
-    .then((categories) => {
-        [computer, headphones, television] = categories;
-        return Promise.all([
-            Product.create({ name: 'laptop computer'}),
-            Product.create({ name: 'bluetooth headphones'}),
-            Product.create({ name: 'smart tv'}),
-            Product.create({ name: 'noise cancelling headphones'})
-        ])
-    })
-    .then( products => {
-        [laptopComputer, bluetoothHeadphones, smartTv, noiseCancellingHeadphones] = products;
-        return Promise.all([
-            computer.addProduct(laptopComputer),
-            headphones.addProducts([bluetoothHeadphones, noiseCancellingHeadphones]),
-            television.addProduct(smartTv)
-        ])
-    })
-}
-
 const syncAndSeed = () => {
     return conn.sync( { force: true })
         .then(async () => {
@@ -67,3 +41,29 @@ module.exports = {
         Product
     }
 }
+
+/* const seed = () => {
+    let computer, headphones, television, laptopComputer, bluetoothHeadphones, smartTv, noiseCancellingHeadphones;
+    return Promise.all([
+        Category.create({ name: 'computer'}),
+        Category.create({ name: 'headphones' }),
+        Category.create({ name: 'television' })
+    ])
+    .then((categories) => {
+        [computer, headphones, television] = categories;
+        return Promise.all([
+            Product.create({ name: 'laptop computer'}),
+            Product.create({ name: 'bluetooth headphones'}),
+            Product.create({ name: 'smart tv'}),
+            Product.create({ name: 'noise cancelling headphones'})
+        ])
+    })
+    .then( products => {
+        [laptopComputer, bluetoothHeadphones, smartTv, noiseCancellingHeadphones] = products;
+        return Promise.all([
+            computer.addProduct(laptopComputer),
+            headphones.addProducts([bluetoothHeadphones, noiseCancellingHeadphones]),
+            television.addProduct(smartTv)
+        ])
+    })
+} */

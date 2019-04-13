@@ -14,15 +14,15 @@ app.get('/api/categories', (req, res, next) => {
     Category.findAll({
         include: [Product]
     })
-    .then( categories => res.send(categories))
-    .catch(next); 
+        .then( categories => res.send(categories))
+        .catch(next); 
 })
 app.get('/api/categories/:id', (req, res, next) => {
     Category.findById(req.params.id, {
         include: [ Product ]
     })
-    .then( category => res.send(category))
-    .catch(next)
+        .then( category => res.send(category))
+        .catch(next)
 })
 app.listen(PORT, () => console.log(`Listening on port ${PORT}`));
 
